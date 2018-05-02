@@ -45,8 +45,10 @@ for alfa in range(1, 16):
         if list1[x] + 1 == list1[x + 1]:
             final_list.remove(list1[x + 1])
 
-    for x in range(len(final_list) - 1):
+    print(f"final_list {final_list}")
+
+    for x in range(0, len(final_list) - 1):
         zadanie = im.crop((133, final_list[x], 1520, final_list[x + 1]))
-        zadanie.save(f"foto{alfa}.jpg")
+        zadanie.save(f"foto{alfa + x}.jpg")
 
 print("--- %s seconds ---" % (time.time() - start_time))
