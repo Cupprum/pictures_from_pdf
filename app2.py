@@ -24,3 +24,7 @@ for x in range(0, len(list1) - 1):
         final_list.remove(list1[x + 1])
 
 print(final_list)
+
+original = Image.open('final.bmp')
+zadanie = original.crop((133, final_list[0], 1520, final_list[1]))
+zadanie.save('ostihana.jpg')
