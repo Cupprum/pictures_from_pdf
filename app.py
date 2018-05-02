@@ -1,36 +1,52 @@
-from pyPdf import PdfFileWriter, PdfFileReader
 from pdf2image import convert_from_path
 from PIL import Image
 import numpy as np
+import time
 
-pdf = PdfFileReader(open('doc1.pdf', 'rb'))
-output = PdfFileWriter()
 
-length = pdf.getNumPages()
+start_time = time.time()
 
-for x in range(1, length - 3):
-    page = pdf.getPage(x)
+for alfa in range(1, 16):
+    im = convert_from_path('doc1.pdf')[alfa]
 
-    page.cropBox.lowerLeft = (45, 55)
-    page.cropBox.upperRight = (550, 795)
+    txt = open('blackandwhite.txt', 'w')
 
-    output.addPage(page)
+    p = np.array(im)
 
-with open("out.pdf", "wb") as out_f:
-    output.write(out_f)
+    for x in p:
+        list_docastny = ""
+        for y in x:
+            if str(y) == "[255 255 255]":
+                list_docastny += "w"
+            else:
+                list_docastny += "b"
+        txt.write(str(list_docastny))
+        txt.write('\n')
 
-im = convert_from_path('out.pdf')[0]
+    txt = open('blackandwhite.txt', 'r').readlines()
+    list1 = []
 
-txt = open('blackandwhite.txt', 'w')
+    line = 0
+    for x in txt:
+        counter = 0
 
-p = np.array(im)
+        for y in range(400, 800):
+            if x[y] == 'b':
+                counter += 1
+            else:
+                break
+        if counter > 399:
+            list1.append(line)
+        line += 1
 
-for x in p:
-    list_docastny = ""
-    for y in x:
-        if str(y) == "[255 255 255]":
-            list_docastny += "w"
-        else:
-            list_docastny += "b"
-    txt.write(str(list_docastny))
-    txt.write('\n')
+    final_list = list1[:]
+
+    for x in range(0, len(list1) - 1):
+        if list1[x] + 1 == list1[x + 1]:
+            final_list.remove(list1[x + 1])
+
+    for x in range(len(final_list) - 1):
+        zadanie = im.crop((133, final_list[x], 1520, final_list[x + 1]))
+        zadanie.save(f"foto{alfa}.jpg")
+
+print("--- %s seconds ---" % (time.time() - start_time))
