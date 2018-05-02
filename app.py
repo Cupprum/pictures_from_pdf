@@ -5,6 +5,7 @@ import time
 
 
 start_time = time.time()
+counter_of_done = 0
 
 for alfa in range(1, 16):
     im = convert_from_path('doc1.pdf')[alfa]
@@ -48,7 +49,9 @@ for alfa in range(1, 16):
     print(f"final_list {final_list}")
 
     for x in range(0, len(final_list) - 1):
+        counter_of_done += 1
+
         zadanie = im.crop((133, final_list[x], 1520, final_list[x + 1]))
-        zadanie.save(f"foto{alfa + x}.jpg")
+        zadanie.save(f"foto{counter_of_done}.jpg")
 
 print("--- %s seconds ---" % (time.time() - start_time))
