@@ -7,38 +7,26 @@ import time
 start_time = time.time()
 counter_of_done = 0
 
-for alfa in range(1, 16):
+for alfa in range(1, 17):
     im = convert_from_path('doc1.pdf')[alfa]
 
-    txt = open('blackandwhite.txt', 'w')
-
     p = np.array(im)
+    list1 = []
+    line = 0
 
     for x in p:
         list_docastny = ""
-        for y in x:
-            if str(y) == "[255 255 255]":
-                list_docastny += "w"
-            else:
-                list_docastny += "b"
-        txt.write(str(list_docastny))
-        txt.write('\n')
-
-    txt = open('blackandwhite.txt', 'r').readlines()
-    list1 = []
-
-    line = 0
-    for x in txt:
         counter = 0
-
-        for y in range(400, 800):
-            if x[y] == 'b':
-                counter += 1
-            else:
+        for y in range(133, 1520):
+            if str(x[y]) == "[255 255 255]":
                 break
-        if counter > 399:
+            else:
+                counter += 1
+        if counter > 1386:
             list1.append(line)
         line += 1
+
+    print(f"done pic analysis {(time.time() - start_time)}")
 
     final_list = list1[:]
 
@@ -54,4 +42,5 @@ for alfa in range(1, 16):
         zadanie = im.crop((133, final_list[x], 1520, final_list[x + 1]))
         zadanie.save(f"foto{counter_of_done}.jpg")
 
-print("--- %s seconds ---" % (time.time() - start_time))
+    print(f"pic done in {(time.time() - start_time)}")
+print(f"--- {(time.time() - start_time)} seconds ---")
