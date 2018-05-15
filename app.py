@@ -44,7 +44,7 @@ for maturita in list_maturita:
             counter_of_done += 1
 
             zadanie = im.crop((133, final_list[x], 1520, final_list[x + 1]))
-            zadanie.save(f"IMG/{maturita[4:-4]}{counter_of_done}.jpg")
+            zadanie.save(f"IMG/{maturita[4:-4]}_{counter_of_done}.jpg")
 
         print(f"pic done in {(time.time() - start_time)}")
     print(f"--- {(time.time() - start_time)} seconds ---")
