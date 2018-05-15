@@ -3,18 +3,19 @@ from PyPDF2 import PdfFileReader
 import numpy as np
 import time
 import glob
+import os
 
 
 list_maturita = glob.glob(
     'PDF/*.pdf')
-
-list_maturita = list_maturita[:1]
 
 for maturita in list_maturita:
     start_time = time.time()
     counter_pack = 1
     actual_maturita = PdfFileReader(open(f"{list_maturita[0]}", 'rb'))
     lenght = actual_maturita.getNumPages() - 3
+
+    os.system(f"mkdir IMG/{maturita[4:-4]}")
 
     for alfa in range(1, lenght, 2):
         im1 = convert_from_path(maturita)[alfa]
@@ -56,6 +57,9 @@ for maturita in list_maturita:
             line2 += 1
 
         final_list1 = list1[:]
+        final_list2 = list2[:]
+
+        act = maturita[4:-4]
 
         for x in range(0, len(list1) - 1):
             if list1[x] + 1 == list1[x + 1]:
@@ -66,9 +70,7 @@ for maturita in list_maturita:
 
             zadanie = im1.crop((133, final_list1[x], 1520, final_list1[x + 1]))
             zadanie.save(
-                f"IMG/{maturita[4:-4]}_{counter_pack}_{counter_in_pack}.jpg")
-
-        final_list2 = list2[:]
+                f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
         for x in range(0, len(list2) - 1):
             if list2[x] + 1 == list2[x + 1]:
@@ -82,7 +84,7 @@ for maturita in list_maturita:
 
             zadanie = im2.crop((133, final_list2[x], 1520, final_list2[x + 1]))
             zadanie.save(
-                f"IMG/{maturita[4:-4]}_{counter_pack}_{counter_in_pack}.jpg")
+                f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
         print(f"pic done in {(time.time() - start_time)}")
         counter_pack += 1
