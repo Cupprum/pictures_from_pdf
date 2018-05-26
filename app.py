@@ -68,7 +68,8 @@ for maturita in list_maturita:
         for x in range(0, len(final_list1) - 1):
             counter_in_pack += 1
 
-            zadanie = im1.crop((133, final_list1[x], 1520, final_list1[x + 1]))
+            zadanie = im1.crop(
+                (140, final_list1[x] + 5, 1510, final_list1[x + 1] - 5))
             zadanie.save(
                 f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
@@ -79,7 +80,8 @@ for maturita in list_maturita:
         for x in range(0, len(final_list2) - 1):
             counter_in_pack += 1
 
-            zadanie = im2.crop((133, final_list2[x], 1520, final_list2[x + 1]))
+            zadanie = im2.crop(
+                (140, final_list2[x] + 5, 1510, final_list2[x + 1] - 5))
             zadanie.save(
                 f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
