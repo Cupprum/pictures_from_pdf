@@ -8,7 +8,7 @@ import os
 
 def last_step():
     zadanie = im1.crop(
-        (140, final_list1[x] + 5, 1510, final_list1[x + 1] - 5))
+        (195, final_list1[x] + 5, 1520, final_list1[x + 1] - 5))
     zadanie.save(
         f"IMG/{act}/{act}_{counter_order}.jpg")
 
