@@ -12,7 +12,7 @@ counter_pack = 1
 actual_maturita = PdfFileReader(open(name_of_file, 'rb'))
 lenght = actual_maturita.getNumPages() - 2
 
-os.system(f"mkdir IMG/{name_of_file[4:-4]}")
+os.system(f"mkdir IMG/{name_of_file[:-4]}")
 
 for alfa in range(1, lenght, 2):
     im1 = convert_from_path(name_of_file)[alfa]
@@ -56,7 +56,7 @@ for alfa in range(1, lenght, 2):
     final_list1 = list1[:]
     final_list2 = list2[:]
 
-    act = name_of_file[4:-4]
+    act = name_of_file[:-4]
 
     for x in range(0, len(list1) - 1):
         if list1[x] + 1 == list1[x + 1]:
@@ -65,7 +65,8 @@ for alfa in range(1, lenght, 2):
     for x in range(0, len(final_list1) - 1):
         counter_in_pack += 1
 
-        zadanie = im1.crop((133, final_list1[x], 1520, final_list1[x + 1]))
+        zadanie = im1.crop(
+            (195, final_list1[x] + 5, 1520, final_list1[x + 1] - 5))
         zadanie.save(
             f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
@@ -76,7 +77,8 @@ for alfa in range(1, lenght, 2):
     for x in range(0, len(final_list2) - 1):
         counter_in_pack += 1
 
-        zadanie = im2.crop((133, final_list2[x], 1520, final_list2[x + 1]))
+        zadanie = im2.crop(
+            (195, final_list2[x] + 5, 1520, final_list2[x + 1] - 5))
         zadanie.save(
             f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
