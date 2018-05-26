@@ -66,23 +66,53 @@ for maturita in list_maturita:
                 final_list1.remove(list1[x + 1])
 
         for x in range(0, len(final_list1) - 1):
-            counter_in_pack += 1
 
             zadanie = im1.crop((133, final_list1[x], 1520, final_list1[x + 1]))
-            zadanie.save(
-                f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
+
+            iterate_foto = np.array(zadanie)
+
+            counter_of_faults = 0
+
+            for y in range(20, len(iterate_foto) - 20, 5):
+                actual_line = iterate_foto[y]
+
+                for z in actual_line[300: -300]:
+                    print(f"original {z}, moje [255 255 255]")
+                    if z != "[255 255 255]":
+                        counter_of_faults += 1
+
+            print(counter_of_faults)
+            if counter_of_faults > 100:
+                counter_in_pack += 1
+                zadanie.save(
+                    f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
         for x in range(0, len(list2) - 1):
             if list2[x] + 1 == list2[x + 1]:
                 final_list2.remove(list2[x + 1])
 
         for x in range(0, len(final_list2) - 1):
-            counter_in_pack += 1
-
             zadanie = im2.crop((133, final_list2[x], 1520, final_list2[x + 1]))
-            zadanie.save(
-                f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
 
+            iterate_foto = np.array(zadanie)
+
+            counter_of_faults = 0
+
+            for y in range(20, len(iterate_foto) - 20, 5):
+                actual_line = iterate_foto[y]
+
+                for z in actual_line[500: -500]:
+                    print(f"original {z}, moje [255 255 255]")
+                    if z != "[255 255 255]":
+                        counter_of_faults += 1
+
+            print(counter_of_faults)
+            if counter_of_faults > 100:
+                counter_in_pack += 1
+                zadanie.save(
+                    f"IMG/{act}/{act}_{counter_pack}_{counter_in_pack}.jpg")
+
+        print(f"{act}_{counter_pack}_{counter_in_pack}")
         print(f"pic done in {(time.time() - start_time)}")
         counter_pack += 1
 
