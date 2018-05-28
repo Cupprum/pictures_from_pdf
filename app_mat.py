@@ -8,7 +8,7 @@ import os
 
 def last_step():
     zadanie = im1.crop(
-        (195, final_list1[x] + 5, 1520, final_list1[x + 1] - 5))
+        (190, final_list1[x] + 5, 1520, final_list1[x + 1] - 5))
     zadanie.save(
         f"IMG/{act}/{act}_{counter_order}.jpg")
 
@@ -56,7 +56,7 @@ for maturita in list_maturita:
                 final_list1.remove(list1[x + 1])
 
         for x in range(0, len(final_list1) - 1):
-            if counter_stop != 0 and counter_stop != 22:
+            if counter_stop != 0 and counter_stop != 21:
                 counter_order += 1
                 last_step()
 
@@ -65,6 +65,4 @@ for maturita in list_maturita:
             if counter_order >= 30:
                 break
 
-        print(f"lap time : {int(time.time() - start_time)}")
-
-    print(f"--- {int(time.time() - start_time)} seconds ---")
+    print(f"{act} time {int(time.time() - start_time)} seconds")
